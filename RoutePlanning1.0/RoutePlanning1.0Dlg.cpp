@@ -70,6 +70,7 @@ CRoutePlanning10Dlg::CRoutePlanning10Dlg(CWnd* pParent /*=NULL*/)
 	, extract4(0)
 	, SliceDistance(0)
 	, SliceNum(0)
+	, Direction(_T(""))
 {
 	m_hIcon = AfxGetApp()->LoadIcon(IDR_MAINFRAME);
 }
@@ -85,6 +86,7 @@ void CRoutePlanning10Dlg::DoDataExchange(CDataExchange* pDX)
 	DDX_Text(pDX, IDC_EDIT6, extract4);
 	DDX_Text(pDX, IDC_EDIT9, SliceDistance);
 	DDX_Text(pDX, IDC_EDIT8, SliceNum);
+	DDX_Text(pDX, IDC_EDIT10, Direction);
 }
 
 BEGIN_MESSAGE_MAP(CRoutePlanning10Dlg, CDialogEx)
@@ -798,60 +800,58 @@ void CRoutePlanning10Dlg::GetSize()
 void CRoutePlanning10Dlg::SHOWPICTURE1()
 {
 	GetSize();
+	glClearColor(1.0f,1.0f,1.0f,0.0f);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);	// Clear Screen And Depth Buffer
 	glLoadIdentity();									// Reset The Current Modelview Matrix
 	//gluLookAt(-1, -1, 1, 1, 1, -1.88675, 0, 0, 1);
-
-	//glLoadIdentity();
-	//glTranslatef(-1.50, -1.5f, -4.0f);						// Move Left 1.5 Units And Into The Screen 6.0	
-	//gluLookAt();
-	glTranslatef(-100.0f, -100.0f, -420.0f);
-	glRotatef(-50, 1.0f, 0.0f, 0.0f);						// Rotate The Triangle On The Y axis ( NEW )
-	//glLineWidth(3);
+	glTranslatef(-70.0f, 0.0f, -420.0f);
+	glRotatef(-40, 1.0f, 0.0f, 0.0f);
+	glRotatef(-90, 0.0f, 0.0f, 1.0f);						// Rotate The Triangle On The Y axis ( NEW )
+	
 
 	//X
-	glColor3f(0.0f, 0.0f, 0.0f);
-	glBegin(GL_LINES);
-	glVertex3f(0.0f, 0.0f, 0.0f);
-	glVertex3f(20.0f, 0.0f, 0.0f);
-	glEnd();
-	glBegin(GL_TRIANGLES);
-	glVertex3f(20.0f, 0.0f, -1.4f);
-	glVertex3f(20.0f, 0.0f, 1.4f);
-	glVertex3f(21.8f, 0.0f, 0.0f);
-	glEnd();
-	glRasterPos3f(21.0f, 0.0f, -2.2f);
-	glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24, 'X');
-	//Y
-	glColor3f(0.0f, 0.0f, 0.0f);
-	glBegin(GL_LINES);
-	glVertex3f(0.0f, 0.0f, 0.0f);
-	glVertex3f(0.0f, 10.0f, 0.0f);
-	glEnd();
-	glBegin(GL_TRIANGLES);
-	glVertex3f(-0.6f, 10.0f, 0.0f);
-	glVertex3f(0.6f, 10.0f, 0.0f);
-	glVertex3f(0.0f, 12.0f, 0.0f);
-	glEnd();
-	glRasterPos3f(2.0f, 5.0f, 0.0f);
-	glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24, 'Y');
-	//Z
-	glColor3f(0.0f, 0.0f, 0.0f);
-	glBegin(GL_LINES);
-	glVertex3f(0.0f, 0.0f, 0.0f);
-	glVertex3f(0.0f, 0.0f, 20.0f);
-	glEnd();
-	glBegin(GL_TRIANGLES);
-	glVertex3f(-1.4f, 0.0f, 20.0f);
-	glVertex3f(1.4f, 0.0f, 20.0f);
-	glVertex3f(0.0f, 0.0f, 22.0f);
-	glEnd();
-	glRasterPos3f(-6.0f, 0.0f, 20.0f);
-	glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24, 'Z');
+	//glLineWidth(3);
+	//glColor3f(0.0f, 0.0f, 0.0f);
+	//glBegin(GL_LINES);
+	//glVertex3f(0.0f, 0.0f, 0.0f);
+	//glVertex3f(20.0f, 0.0f, 0.0f);
+	//glEnd();
+	//glBegin(GL_TRIANGLES);
+	//glVertex3f(20.0f, 0.0f, -1.4f);
+	//glVertex3f(20.0f, 0.0f, 1.4f);
+	//glVertex3f(21.8f, 0.0f, 0.0f);
+	//glEnd();
+	//glRasterPos3f(21.0f, 0.0f, -2.2f);
+	//glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24, 'X');
+	////Y
+	//glColor3f(0.0f, 0.0f, 0.0f);
+	//glBegin(GL_LINES);
+	//glVertex3f(0.0f, 0.0f, 0.0f);
+	//glVertex3f(0.0f, 10.0f, 0.0f);
+	//glEnd();
+	//glBegin(GL_TRIANGLES);
+	//glVertex3f(-0.6f, 10.0f, 0.0f);
+	//glVertex3f(0.6f, 10.0f, 0.0f);
+	//glVertex3f(0.0f, 12.0f, 0.0f);
+	//glEnd();
+	//glRasterPos3f(2.0f, 5.0f, 0.0f);
+	//glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24, 'Y');
+	////Z
+	//glColor3f(0.0f, 0.0f, 0.0f);
+	//glBegin(GL_LINES);
+	//glVertex3f(0.0f, 0.0f, 0.0f);
+	//glVertex3f(0.0f, 0.0f, 20.0f);
+	//glEnd();
+	//glBegin(GL_TRIANGLES);
+	//glVertex3f(-1.4f, 0.0f, 20.0f);
+	//glVertex3f(1.4f, 0.0f, 20.0f);
+	//glVertex3f(0.0f, 0.0f, 22.0f);
+	//glEnd();
+	//glRasterPos3f(-6.0f, 0.0f, 20.0f);
+	//glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24, 'Z');
 
 	glLineWidth(1);
 	glColor3f(0.0f, 0.0f, 0.0f);
-
 	for (int i = 0; i < (int)m_Body.edgeLink.size(); i++)
 	{
 		glBegin(GL_LINES);
@@ -859,7 +859,6 @@ void CRoutePlanning10Dlg::SHOWPICTURE1()
 		glVertex3f(m_Body.edgeLink[i]->Vedg[1]->vertex[0], m_Body.edgeLink[i]->Vedg[1]->vertex[1], m_Body.edgeLink[i]->Vedg[1]->vertex[2]);
 		glEnd();
 	}
-
 	glFinish();
 	// Now Swap the buffers
 	SwapBuffers(m_pDC->GetSafeHdc());
@@ -872,50 +871,10 @@ void CRoutePlanning10Dlg::OnBnClickedShowgraph()
 	GetSize();
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);	// Clear Screen And Depth Buffer
 	glLoadIdentity();									// Reset The Current Modelview Matrix						
-	glTranslatef(-100.0f, -100.0f, -420.0f);
-	glRotatef(-60, 1.0f, 0.0f, 0.0f);						// Rotate The Triangle On The Y axis ( NEW )
+	glTranslatef(-70.0f, 0.0f, -420.0f);
+	glRotatef(-40, 1.0f, 0.0f, 0.0f);
+	glRotatef(-90, 0.0f, 0.0f, 1.0f);						// Rotate The Triangle On The Y axis ( NEW )
 	glLineWidth(2);
-
-	//X
-	glLineWidth(1);
-	glColor3f(0.0f, 0.0f, 0.0f);
-	glBegin(GL_LINES);
-	glVertex3f(0.0f, 0.0f, 0.0f);
-	glVertex3f(20.0f, 0.0f, 0.0f);
-	glEnd();
-	glBegin(GL_TRIANGLES);
-	glVertex3f(20.0f, 0.0f, -1.4f);
-	glVertex3f(20.0f, 0.0f, 1.4f);
-	glVertex3f(21.8f, 0.0f, 0.0f);
-	glEnd();
-	glRasterPos3f(21.0f, 0.0f, -2.2f);
-	glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24, 'X');
-	//Y
-	glColor3f(0.0f, 0.0f, 0.0f);
-	glBegin(GL_LINES);
-	glVertex3f(0.0f, 0.0f, 0.0f);
-	glVertex3f(0.0f, 10.0f, 0.0f);
-	glEnd();
-	glBegin(GL_TRIANGLES);
-	glVertex3f(-0.6f, 10.0f, 0.0f);
-	glVertex3f(0.6f, 10.0f, 0.0f);
-	glVertex3f(0.0f, 12.0f, 0.0f);
-	glEnd();
-	glRasterPos3f(2.0f, 5.0f, 0.0f);
-	glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24, 'Y');
-	//Z
-	glColor3f(0.0f, 0.0f, 0.0f);
-	glBegin(GL_LINES);
-	glVertex3f(0.0f, 0.0f, 0.0f);
-	glVertex3f(0.0f, 0.0f, 20.0f);
-	glEnd();
-	glBegin(GL_TRIANGLES);
-	glVertex3f(-1.4f, 0.0f, 20.0f);
-	glVertex3f(1.4f, 0.0f, 20.0f);
-	glVertex3f(0.0f, 0.0f, 22.0f);
-	glEnd();
-	glRasterPos3f(-6.0f, 0.0f, 20.0f);
-	glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24, 'Z');
 
 	for (int i = 0; i < (int)m_findbody.m_NoActiveEdgeLink.size(); i++)
 	{
@@ -935,29 +894,56 @@ void CRoutePlanning10Dlg::OnBnClickedRouteplanning()
 	// TODO: 在此添加控件通知处理程序代码
 	UpdateData(TRUE);
 	m_SliceDistance = SliceDistance;
+	m_Direction = Direction;
 	UpdateData(FALSE);
+
+	if (m_Direction == "x")
+	{
+		ShowRoute(m_Direction,0);
+	}
+	else if (m_Direction == "y")
+	{
+		ShowRoute(m_Direction, 1);
+	}
+	else if (m_Direction == "z")
+	{
+		ShowRoute(m_Direction, 2);
+	}
+	
+
+	glFinish();
+	// Now Swap the buffers
+	SwapBuffers(m_pDC->GetSafeHdc());
+}
+
+
+void CRoutePlanning10Dlg::ShowRoute(CString m, int n)    //m:x y z;  n:0 1 2
+{
+	float m_min = 0;
+	float m_max = 0;
+	vector<float> Y;
 	for (int i = 0; i < (int)m_findbody.m_FindTriangleLink.size(); i++)
 	{
 		for (int j = 0; j < 3; j++)
-		{			
-			if (m_miny > m_findbody.m_FindTriangleLink[i]->Vtrg[j]->vertex[1])
+		{
+			if (m_min > m_findbody.m_FindTriangleLink[i]->Vtrg[j]->vertex[n])
 			{
-				m_miny = m_findbody.m_FindTriangleLink[i]->Vtrg[j]->vertex[1];
+				m_min = m_findbody.m_FindTriangleLink[i]->Vtrg[j]->vertex[n];
 			}
-			if (m_maxy < m_findbody.m_FindTriangleLink[i]->Vtrg[j]->vertex[1])
+			if (m_max < m_findbody.m_FindTriangleLink[i]->Vtrg[j]->vertex[n])
 			{
-				m_maxy = m_findbody.m_FindTriangleLink[i]->Vtrg[j]->vertex[1];
+				m_max = m_findbody.m_FindTriangleLink[i]->Vtrg[j]->vertex[n];
 			}
 		}
 	}
 
-	m_SliceNum = (int)(m_maxy - m_miny) / m_SliceDistance;
+	m_SliceNum = (int)(m_max - m_min) / m_SliceDistance;
 	UpdateData(TRUE);
 	SliceNum = m_SliceNum;
 	UpdateData(FALSE);
 	for (int i = 0; i < m_SliceNum; i++)
 	{
-		Y.push_back(m_miny+m_SliceDistance/2+m_SliceDistance*i);
+		Y.push_back(m_min + m_SliceDistance / 2 + m_SliceDistance*i);
 	}
 	for (int i = 0; i < (int)Y.size(); i++)
 	{
@@ -967,42 +953,124 @@ void CRoutePlanning10Dlg::OnBnClickedRouteplanning()
 			for (int k = 0; k < 3; k++)
 			{
 				struct point m_point;
-				m_point.y = Y[i];
-				struct Node *m_Node1 = m_findbody.m_FindTriangleLink[j]->Eg[k]->Vedg[0];   //Node 0
-				struct Node *m_Node2 = m_findbody.m_FindTriangleLink[j]->Eg[k]->Vedg[1];   //Node 1
-				int m_flag1 = 0;
-				int m_flag2 = 0;
-				if (m_Node1->vertex[1] < Y[i] && Y[i]< m_Node2->vertex[1])
+				if (m == "x")
 				{
-					m_point.x = (m_point.y - m_Node1->vertex[1])*(m_Node2->vertex[0] - m_Node1->vertex[0]) / (m_Node2->vertex[1] - m_Node1->vertex[1]) + m_Node1->vertex[0];
-					m_point.z = (m_point.y - m_Node1->vertex[1])*(m_Node2->vertex[2] - m_Node1->vertex[2]) / (m_Node2->vertex[1] - m_Node1->vertex[1]) + m_Node1->vertex[2];
-					m_flag1 = 1;
-				}
-				if (m_Node1->vertex[1] > Y[i] && Y[i]> m_Node2->vertex[1])
-				{
-					m_point.x = (m_point.y - m_Node2->vertex[1])*(m_Node1->vertex[0] - m_Node2->vertex[0]) / (m_Node1->vertex[1] - m_Node2->vertex[1]) + m_Node2->vertex[0];
-					m_point.z = (m_point.y - m_Node2->vertex[1])*(m_Node1->vertex[2] - m_Node2->vertex[2]) / (m_Node1->vertex[1] - m_Node2->vertex[1]) + m_Node2->vertex[2];
-					m_flag1 = 1;
-				}
-				if (m_flag1)       //这个边包含了此截面
-				{
-					if (m_points.size() == 0)
+					m_point.x = Y[i];
+					struct Node *m_Node1 = m_findbody.m_FindTriangleLink[j]->Eg[k]->Vedg[0];   //Node 0
+					struct Node *m_Node2 = m_findbody.m_FindTriangleLink[j]->Eg[k]->Vedg[1];   //Node 1
+					int m_flag1 = 0;
+					int m_flag2 = 0;
+					if (m_Node1->vertex[0] < Y[i] && Y[i]< m_Node2->vertex[0])
 					{
-						m_points.push_back(m_point);
+						m_point.y = (m_point.x - m_Node1->vertex[0])*(m_Node2->vertex[1] - m_Node1->vertex[1]) / (m_Node2->vertex[0] - m_Node1->vertex[0]) + m_Node1->vertex[1];
+						m_point.z = (m_point.x - m_Node1->vertex[0])*(m_Node2->vertex[2] - m_Node1->vertex[2]) / (m_Node2->vertex[0] - m_Node1->vertex[0]) + m_Node1->vertex[2];
+						m_flag1 = 1;
 					}
-					for (int i = 0; i < (int)m_points.size(); i++)
+					if (m_Node1->vertex[0] > Y[i] && Y[i]> m_Node2->vertex[0])
 					{
-						if ((m_points[i].x == m_point.x) && (m_points[i].x == m_point.x) && (m_points[i].x == m_point.x))
+						m_point.y = (m_point.x - m_Node2->vertex[0])*(m_Node1->vertex[1] - m_Node2->vertex[1]) / (m_Node1->vertex[0] - m_Node2->vertex[0]) + m_Node2->vertex[1];
+						m_point.z = (m_point.x - m_Node2->vertex[0])*(m_Node1->vertex[2] - m_Node2->vertex[2]) / (m_Node1->vertex[0] - m_Node2->vertex[0]) + m_Node2->vertex[2];
+						m_flag1 = 1;
+					}
+					if (m_flag1)       //这个边包含了此截面
+					{
+						if (m_points.size() == 0)
 						{
-							m_flag2 = 1;
-							break;
+							m_points.push_back(m_point);
+						}
+						for (int i = 0; i < (int)m_points.size(); i++)
+						{
+							if ((m_points[i].x == m_point.x) && (m_points[i].y == m_point.y) && (m_points[i].z == m_point.z))
+							{
+								m_flag2 = 1;
+								break;
+							}
+						}
+						if (m_flag2 == 0)
+						{
+							m_points.push_back(m_point);
 						}
 					}
-					if (m_flag2 == 0)
+				}
+				else if (m == "y")
+				{
+					m_point.y = Y[i];
+					struct Node *m_Node1 = m_findbody.m_FindTriangleLink[j]->Eg[k]->Vedg[0];   //Node 0
+					struct Node *m_Node2 = m_findbody.m_FindTriangleLink[j]->Eg[k]->Vedg[1];   //Node 1
+					int m_flag1 = 0;
+					int m_flag2 = 0;
+					if (m_Node1->vertex[1] < Y[i] && Y[i]< m_Node2->vertex[1])
 					{
-						m_points.push_back(m_point);
+						m_point.x = (m_point.y - m_Node1->vertex[1])*(m_Node2->vertex[0] - m_Node1->vertex[0]) / (m_Node2->vertex[1] - m_Node1->vertex[1]) + m_Node1->vertex[0];
+						m_point.z = (m_point.y - m_Node1->vertex[1])*(m_Node2->vertex[2] - m_Node1->vertex[2]) / (m_Node2->vertex[1] - m_Node1->vertex[1]) + m_Node1->vertex[2];
+						m_flag1 = 1;
+					}
+					if (m_Node1->vertex[1] > Y[i] && Y[i]> m_Node2->vertex[1])
+					{
+						m_point.x = (m_point.y - m_Node2->vertex[1])*(m_Node1->vertex[0] - m_Node2->vertex[0]) / (m_Node1->vertex[1] - m_Node2->vertex[1]) + m_Node2->vertex[0];
+						m_point.z = (m_point.y - m_Node2->vertex[1])*(m_Node1->vertex[2] - m_Node2->vertex[2]) / (m_Node1->vertex[1] - m_Node2->vertex[1]) + m_Node2->vertex[2];
+						m_flag1 = 1;
+					}
+					if (m_flag1)       //这个边包含了此截面
+					{
+						if (m_points.size() == 0)
+						{
+							m_points.push_back(m_point);
+						}
+						for (int i = 0; i < (int)m_points.size(); i++)
+						{
+							if ((m_points[i].x == m_point.x) && (m_points[i].y == m_point.y) && (m_points[i].z == m_point.z))
+							{
+								m_flag2 = 1;
+								break;
+							}
+						}
+						if (m_flag2 == 0)
+						{
+							m_points.push_back(m_point);
+						}
 					}
 				}
+				else
+				{
+					m_point.z = Y[i];
+					struct Node *m_Node1 = m_findbody.m_FindTriangleLink[j]->Eg[k]->Vedg[0];   //Node 0
+					struct Node *m_Node2 = m_findbody.m_FindTriangleLink[j]->Eg[k]->Vedg[1];   //Node 1
+					int m_flag1 = 0;
+					int m_flag2 = 0;
+					if (m_Node1->vertex[2] < Y[i] && Y[i]< m_Node2->vertex[2])
+					{
+						m_point.x = (m_point.z - m_Node1->vertex[2])*(m_Node2->vertex[0] - m_Node1->vertex[0]) / (m_Node2->vertex[2] - m_Node1->vertex[2]) + m_Node1->vertex[0];
+						m_point.y = (m_point.z - m_Node1->vertex[2])*(m_Node2->vertex[2] - m_Node1->vertex[2]) / (m_Node2->vertex[2] - m_Node1->vertex[2]) + m_Node1->vertex[1];
+						m_flag1 = 1;
+					}
+					if (m_Node1->vertex[1] > Y[i] && Y[i]> m_Node2->vertex[1])
+					{
+						m_point.x = (m_point.z - m_Node2->vertex[2])*(m_Node1->vertex[0] - m_Node2->vertex[0]) / (m_Node1->vertex[2] - m_Node2->vertex[2]) + m_Node2->vertex[0];
+						m_point.y = (m_point.z - m_Node2->vertex[2])*(m_Node1->vertex[2] - m_Node2->vertex[2]) / (m_Node1->vertex[2] - m_Node2->vertex[2]) + m_Node2->vertex[1];
+						m_flag1 = 1;
+					}
+					if (m_flag1)       //这个边包含了此截面
+					{
+						if (m_points.size() == 0)
+						{
+							m_points.push_back(m_point);
+						}
+						for (int i = 0; i < (int)m_points.size(); i++)
+						{
+							if ((m_points[i].x == m_point.x) && (m_points[i].y == m_point.y) && (m_points[i].z == m_point.z))
+							{
+								m_flag2 = 1;
+								break;
+							}
+						}
+						if (m_flag2 == 0)
+						{
+							m_points.push_back(m_point);
+						}
+					}
+				}
+
 			}
 		}
 		intersections1.push_back(m_points);
@@ -1011,7 +1079,7 @@ void CRoutePlanning10Dlg::OnBnClickedRouteplanning()
 	{
 		vector<struct point> m_vector;
 		m_vector = intersections1[i];
-		sort(m_vector.begin(),m_vector.end(),cmp);
+		sort(m_vector.begin(), m_vector.end(), cmp);
 		intersections2.push_back(m_vector);
 	}//路径规划结束，以下为显示
 
@@ -1019,50 +1087,9 @@ void CRoutePlanning10Dlg::OnBnClickedRouteplanning()
 	GetSize();
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);	// Clear Screen And Depth Buffer
 	glLoadIdentity();									// Reset The Current Modelview Matrix						
-	glTranslatef(-100.0f, -100.0f, -420.0f);
-	//glRotatef();
-	glRotatef(-60, 1.0f, 0.0f, 0.0f);						// Rotate The Triangle On The Y axis ( NEW )
-	
-	//X
-	glLineWidth(1);
-	glColor3f(0.0f, 0.0f, 0.0f);
-	glBegin(GL_LINES);
-	glVertex3f(0.0f, 0.0f, 0.0f);
-	glVertex3f(20.0f, 0.0f, 0.0f);
-	glEnd();
-	glBegin(GL_TRIANGLES);
-	glVertex3f(20.0f, 0.0f, -1.4f);
-	glVertex3f(20.0f, 0.0f, 1.4f);
-	glVertex3f(21.8f, 0.0f, 0.0f);
-	glEnd();
-	glRasterPos3f(21.0f, 0.0f, -2.2f);
-	glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24, 'X');
-	//Y
-	glColor3f(0.0f, 0.0f, 0.0f);
-	glBegin(GL_LINES);
-	glVertex3f(0.0f, 0.0f, 0.0f);
-	glVertex3f(0.0f, 10.0f, 0.0f);
-	glEnd();
-	glBegin(GL_TRIANGLES);
-	glVertex3f(-0.6f, 10.0f, 0.0f);
-	glVertex3f(0.6f, 10.0f, 0.0f);
-	glVertex3f(0.0f, 12.0f, 0.0f);
-	glEnd();
-	glRasterPos3f(2.0f, 5.0f, 0.0f);
-	glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24, 'Y');
-	//Z
-	glColor3f(0.0f, 0.0f, 0.0f);
-	glBegin(GL_LINES);
-	glVertex3f(0.0f, 0.0f, 0.0f);
-	glVertex3f(0.0f, 0.0f, 20.0f);
-	glEnd();
-	glBegin(GL_TRIANGLES);
-	glVertex3f(-1.4f, 0.0f, 20.0f);
-	glVertex3f(1.4f, 0.0f, 20.0f);
-	glVertex3f(0.0f, 0.0f, 22.0f);
-	glEnd();
-	glRasterPos3f(-6.0f, 0.0f, 20.0f);
-	glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24, 'Z');
+	glTranslatef(-70.0f, 0.0f, -420.0f);
+	glRotatef(-40, 1.0f, 0.0f, 0.0f);
+	glRotatef(-90, 0.0f, 0.0f, 1.0f);						// Rotate The Triangle On The Y axis ( NEW )
 
 	glLineWidth(2);
 	for (int i = 0; i < (int)m_findbody.m_NoActiveEdgeLink.size(); i++)
@@ -1082,8 +1109,4 @@ void CRoutePlanning10Dlg::OnBnClickedRouteplanning()
 		}
 		glEnd();
 	}
-
-	glFinish();
-	// Now Swap the buffers
-	SwapBuffers(m_pDC->GetSafeHdc());
 }

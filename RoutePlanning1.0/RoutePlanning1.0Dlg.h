@@ -83,11 +83,10 @@ public:
 	int SliceNum;             //edit box variable
 	float m_SliceDistance;    //
 	int m_SliceNum;
-	float m_miny = 0;
-	float m_maxy = 0;
-	vector<float> Y;
 
 	vector<vector<point>> intersections1;   //unordered set of intersection      
 	vector<vector<point>> intersections2;   //ordered set of intersection
-
+	CString Direction;
+	CString m_Direction;
+	void ShowRoute(CString m, int n);
 };
